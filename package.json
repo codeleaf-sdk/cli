@@ -1,6 +1,6 @@
 {
   "name": "@codeleaf-sdk/cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "",
   "main": "index.js",
   "bin": {
@@ -9,7 +9,7 @@
   "scripts": {
     "watch": "nodemon",
     "start": "ts-node ./src/index.ts",
-    "build": "tsc && cp -r ./src/templates ./dist",
+    "build": "tsc",
     "prepublish": "npm run build"
   },
   "keywords": [],

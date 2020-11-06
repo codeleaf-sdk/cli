@@ -1,6 +1,7 @@
 import prompts from 'prompts';
 import { mkdir, readFile, writeFile } from 'async-fs-wrapper';
 import replaceString from 'replace-string';
+import templates from '../templates';
 
 type InterpolationMap = {
   "{$MODULE}": string;
@@ -77,25 +78,23 @@ INFO: service creating now doesn't support any injects
 
   console.log('INFO: Writing files');
   try {
-    await readTemplates(interpolationMap, modulePath, moduleName, ['index._ts', 'page._tsx', 'service._ts', 'store._ts']);
+    await readTemplates(interpolationMap, `${modulePath}/${moduleName}`, ['index._ts', 'page._tsx', 'service._ts', 'store._ts']);
     console.log('INFO: Done');
   } catch (Err) {
     console.error(Err.message);
   }
 }
 
-const readTemplates = async (interpolationMap: InterpolationMap, modulePath: string, moduleName: string, files: string[]) => {
-  await mkdir(`${modulePath}/${moduleName}`);
+const readTemplates = async (interpolationMap: InterpolationMap, modulePath: string, files: string[]) => {
+  await mkdir(`${modulePath}`);
 
-  Promise.all(files.map(async (fileName) => {
-    const buff = await readFile(`./templates/${fileName}`);
-    let plain = buff.toString();
-
+  Promise.all(Object.entries(templates).map(async ([fileName, contents]) => {
+    let plain = `${contents}`;
     Object.entries(interpolationMap).forEach(([key, value]) => {
       plain = replaceString(plain, key, value);
     });
 
-    await writeFile(`${modulePath}/${moduleName}/${fileName.replace('_', '')}`, plain);
+    await writeFile(`${modulePath}/${fileName.replace('_', '')}`, plain);
   }));
 };
 

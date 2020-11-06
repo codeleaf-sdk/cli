@@ -42,6 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var prompts_1 = __importDefault(require("prompts"));
 var async_fs_wrapper_1 = require("async-fs-wrapper");
 var replace_string_1 = __importDefault(require("replace-string"));
+var templates_1 = __importDefault(require("../templates"));
 var CreatePage = function (_moduleName, _modulePath) { return __awaiter(void 0, void 0, void 0, function () {
     var moduleName, _a, modulePath, _b, injectFetchStore, injectPaginationStore, interpolationMap, fetch_1, pagination, Err_1;
     return __generator(this, function (_c) {
@@ -119,7 +120,7 @@ var CreatePage = function (_moduleName, _modulePath) { return __awaiter(void 0, 
                 _c.label = 9;
             case 9:
                 _c.trys.push([9, 11, , 12]);
-                return [4 /*yield*/, readTemplates(interpolationMap, modulePath, moduleName, ['index._ts', 'page._tsx', 'service._ts', 'store._ts'])];
+                return [4 /*yield*/, readTemplates(interpolationMap, modulePath + "/" + moduleName, ['index._ts', 'page._tsx', 'service._ts', 'store._ts'])];
             case 10:
                 _c.sent();
                 console.log('INFO: Done');
@@ -132,31 +133,32 @@ var CreatePage = function (_moduleName, _modulePath) { return __awaiter(void 0, 
         }
     });
 }); };
-var readTemplates = function (interpolationMap, modulePath, moduleName, files) { return __awaiter(void 0, void 0, void 0, function () {
+var readTemplates = function (interpolationMap, modulePath, files) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, async_fs_wrapper_1.mkdir(modulePath + "/" + moduleName)];
+            case 0: return [4 /*yield*/, async_fs_wrapper_1.mkdir("" + modulePath)];
             case 1:
                 _a.sent();
-                Promise.all(files.map(function (fileName) { return __awaiter(void 0, void 0, void 0, function () {
-                    var buff, plain;
-                    return __generator(this, function (_a) {
-                        switch (_a.label) {
-                            case 0: return [4 /*yield*/, async_fs_wrapper_1.readFile("./templates/" + fileName)];
-                            case 1:
-                                buff = _a.sent();
-                                plain = buff.toString();
-                                Object.entries(interpolationMap).forEach(function (_a) {
-                                    var key = _a[0], value = _a[1];
-                                    plain = replace_string_1.default(plain, key, value);
-                                });
-                                return [4 /*yield*/, async_fs_wrapper_1.writeFile(modulePath + "/" + moduleName + "/" + fileName.replace('_', ''), plain)];
-                            case 2:
-                                _a.sent();
-                                return [2 /*return*/];
-                        }
+                Promise.all(Object.entries(templates_1.default).map(function (_a) {
+                    var fileName = _a[0], contents = _a[1];
+                    return __awaiter(void 0, void 0, void 0, function () {
+                        var plain;
+                        return __generator(this, function (_b) {
+                            switch (_b.label) {
+                                case 0:
+                                    plain = "" + contents;
+                                    Object.entries(interpolationMap).forEach(function (_a) {
+                                        var key = _a[0], value = _a[1];
+                                        plain = replace_string_1.default(plain, key, value);
+                                    });
+                                    return [4 /*yield*/, async_fs_wrapper_1.writeFile(modulePath + "/" + fileName.replace('_', ''), plain)];
+                                case 1:
+                                    _b.sent();
+                                    return [2 /*return*/];
+                            }
+                        });
                     });
-                }); }));
+                }));
                 return [2 /*return*/];
         }
     });
