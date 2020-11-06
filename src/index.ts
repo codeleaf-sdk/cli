@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import CreatePage from '../controllers/CreatePage';
+import CreatePage from './controllers/CreatePage';
 
 const program = new Command();
 program
