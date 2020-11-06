@@ -1,0 +1,11 @@
+import { CreatePageModule{$STORE-IMPORT-DEPS} } from '@codeleaf-sdk/core';
+import {$MODULE}Store from './store';
+import {$MODULE}Service from './service';
+import {$MODULE}Page from './page';
+
+export const {$MODULE}Module = CreatePageModule<{$MODULE}Store, {$MODULE}Service>({
+  path: '/',
+  component: {$MODULE}Page,
+  store: [{$MODULE}Store, {$STORE-DEPS-DEPS}],
+  service: [{$MODULE}Service, {$SERVICE-DEPS-DEPS}],
+});

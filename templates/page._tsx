@@ -1,0 +1,13 @@
+import React, { FC, useContext } from 'react';
+import { observer } from 'mobx-react';
+import { {$MODULE}Module } from './index';
+
+const {$MODULE}Page: FC = () => {
+  const { store, service } = useContext({$MODULE}Module.Context);
+
+  console.log({ store, service });
+
+  return <span>Functional Component</span>;
+}
+
+export default observer({$MODULE}Page);

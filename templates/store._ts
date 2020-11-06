@@ -1,0 +1,18 @@
+import { BaseStore{$STORE-IMPORT-DEPS} } from '@codeleaf-sdk/core';
+import { Model } from '@models/Model';
+import { computed } from 'mobx';
+
+type {$MODULE}StoreState = {
+  models: Model[];
+};
+
+export default class {$MODULE}Store extends BaseStore<{$MODULE}StoreState> {
+  constructor({$STORE-CONSTRUCTOR-DEPS}) {
+    super({ models: [] }, '{$MODULE}Store');
+  }
+
+  @computed
+  get models(): Model[] {
+    return this.state.models;
+  }
+}

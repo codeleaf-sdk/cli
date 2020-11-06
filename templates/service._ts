@@ -1,0 +1,7 @@
+export default class {$MODULE}Service {
+  constructor({$SERVICE-CONSTRUCTOR-DEPS}) {}
+
+  async getData(): Promise<null> {
+    // ...
+  }
+}

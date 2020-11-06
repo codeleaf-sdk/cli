@@ -1,0 +1,27 @@
+{
+  "name": "@codeleaf-sdk/cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "nodemon",
+    "start": "ts-node ./src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.3",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "@types/commander": "^2.12.2",
+    "@types/node": "^14.14.6",
+    "@types/prompts": "^2.0.9",
+    "async-fs-wrapper": "^2.6.0",
+    "commander": "^6.2.0",
+    "prompts": "^2.4.0",
+    "replace-string": "^3.1.0"
+  }
+}
