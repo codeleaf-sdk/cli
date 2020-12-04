@@ -60,8 +60,8 @@ INFO: service creating now doesn't support any injects
   };
 
   if (injectFetchStore === 'y' || injectPaginationStore === 'y') {
-    const fetch = injectFetchStore === 'y' ? `{ ClassName: FetchStore, Args: ['${moduleName}FetchStore'] },` : '';
-    const pagination = injectPaginationStore === 'y' ? `{ ClassName: PaginationStore, Args: ['${moduleName}PaginationStore'] },` : '';
+    const fetch = injectFetchStore === 'y' ? `{ target: FetchStore, args: ['${moduleName}FetchStore'] },` : '';
+    const pagination = injectPaginationStore === 'y' ? `{ target: PaginationStore, args: ['${moduleName}PaginationStore'] },` : '';
 
     interpolationMap['{$STORE-DEPS-DEPS}'] = `[${fetch} ${pagination}],`;
   }
@@ -78,14 +78,14 @@ INFO: service creating now doesn't support any injects
 
   console.log('INFO: Writing files');
   try {
-    await readTemplates(interpolationMap, `${modulePath}/${moduleName}`, ['index._ts', 'page._tsx', 'service._ts', 'store._ts']);
+    await readTemplates(interpolationMap, `${modulePath}/${moduleName}`);
     console.log('INFO: Done');
   } catch (Err) {
     console.error(Err.message);
   }
 }
 
-const readTemplates = async (interpolationMap: InterpolationMap, modulePath: string, files: string[]) => {
+const readTemplates = async (interpolationMap: InterpolationMap, modulePath: string) => {
   await mkdir(`${modulePath}`);
 
   Promise.all(Object.entries(templates).map(async ([fileName, contents]) => {

@@ -3,7 +3,7 @@ import CreatePage from './controllers/CreatePage';
 
 const program = new Command();
 program
-  .version('1.0.0')
+  .version('1.0.3')
   .usage('-p -e MyAwesomePage -t ../../my-project/src/pages')
   .option('-p, --page', 'Create page module')
   .option('-e, --entity-name <value>', 'Define name for entity')
